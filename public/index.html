@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JR E-Commerce</title>
+  <meta name="description" content="E-commerce con productos de joyeria, electronica, ropa de hombre y ropa de mujer">
+  <meta name="keywords" content="e-commerce, tienda, ropa, joyeria, electronica, hombre, mujer">
+  <meta name="author" content="Julian Riedinger">
+  <meta name="copyright" content="Julian Riedinger 2022">
+  <meta name="robots" content="index follow">
+  <!-- Meta Facebook -->
+  <meta name="og:title" content="JR E-Commerce">
+  <meta name="og:description"
+    content="E-commerce con productos de joyeria, electronica, ropa de hombre y ropa de mujer">
+  <meta name="og:type" content="Tienda online">
+  <meta name="og:image" content="https://julianr-ecommerce.web.app/images/logo.png">
+  <meta name="og:url" content="https://julianr-ecommerce.web.app/">
+  <!-- Meta Twitter -->
+  <meta name="og:title" content="JR E-Commerce">
+  <meta name="og:description"
+    content="E-commerce con productos de joyeria, electronica, ropa de hombre y ropa de mujer">
+  <meta name="og:type" content="Tienda online">
+  <meta name="og:image" content="https://julianr-ecommerce.web.app/images/logo.png">
+  <meta name="og:url" content="https://julianr-ecommerce.web.app/">
+  <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+  <header class="d-none">
+    <div class="logo-container">
+      <img src="./images/logo.png" alt="logo">
+      <h1>JR E-Commerce</h1>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#" class="link-category">Electronics</a></li>
+        <li><a href="#" class="link-category">Jewelery</a></li>
+        <li><a href="#" class="link-category">Men's clothing</a></li>
+        <li><a href="#" class="link-category">Women's clothing</a></li>
+        <li><a href="" class="cart">
+            <img src="./images/carrito.png" alt="carrito">
+            <p></p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <section class="seccion loader">
+    <img src="./images/loader.gif" alt="loader">
+  </section>
+  <section class="seccion home d-none">
+    <div class="featured"></div>
+    <section class="categories"></section>
+  </section>
+  <section class="seccion category-products d-none">
+    <img src="./images/atras.png" alt="atras" class="back-arrow">
+    <div class="products-container"></div>
+  </section>
+  <section class="seccion modal d-none">
+  </section>
+  <section class="seccion cart-products d-none">
+    <img src="./images/atras.png" alt="atras" class="back-cart">
+    <div class="cart-products-container"></div>
+    <button class="d-none">Comprar</button>
+  </section>
+  <footer class="d-none">
+    <p>Copyright 2022 &copy; Julian Riedinger</p>
+  </footer>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
