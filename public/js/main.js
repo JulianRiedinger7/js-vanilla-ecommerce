@@ -201,9 +201,9 @@ cartIcon.addEventListener('click', (evt) => showCart(evt))
 
 document.querySelectorAll('nav .link-category').forEach(link => link.addEventListener('click', async (evt) => {
   const allProducts = await products
+  modal.classList.add('d-none')
   evt.preventDefault()
   showCategoryProducts(evt.target.innerText.toLowerCase(), allProducts)
-  console.log(evt.target.innerText)
 }))
 
 
