@@ -192,6 +192,16 @@ header nav .cart p{
   aspect-ratio: 1;
 }
 
+.category-product div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-product .see-more{
+  background-color: #FFA024;
+}
+
 .modal{
   display: flex;
   justify-content: center;
@@ -227,6 +237,16 @@ header nav .cart p{
 
 .modal .modal-product div p{
   width: 70%;
+}
+
+.cart-product div{
+  display: flex;
+  gap: 20px;
+}
+
+.cart-product .borrar{
+  width: 50px;
+  cursor: pointer;
 }
 
 .cart-products{

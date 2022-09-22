@@ -72,7 +72,10 @@ const showCategoryProducts = (category, products) => {
       <img src='${product.image}' alt='${product.title}'>
       <h2>${product.title}</h2>
       <p>$ ${product.price}</p>
-      <button data-index='${index}'>Comprar</button>
+      <div>
+        <button data-index='${index}' class='see-more'>Ver Mas</button>
+        <button data-index='${index}' class='buy'>Comprar</button>
+      </div>
     </div>
     `
 
@@ -86,7 +89,8 @@ const showCategoryProducts = (category, products) => {
     categoryProductsSection.classList.add('d-none')
     home.classList.remove('d-none')
   })
-  document.querySelectorAll('.category-product button').forEach(button => button.addEventListener('click', (evt) => productDescription(categoryProducts, evt.target.dataset.index)))
+  document.querySelectorAll('.category-product .see-more').forEach(button => button.addEventListener('click', (evt) => productDescription(categoryProducts, evt.target.dataset.index)))
+  document.querySelectorAll('.category-product .buy').forEach(button => button.addEventListener('click', (evt) => addToCart(categoryProducts[evt.target.dataset.index])))
 }
 
 const productDescription = (categoryProducts, index) => {
@@ -122,7 +126,12 @@ const productDescription = (categoryProducts, index) => {
 }
 
 const addToCart = product => {
-  cartProducts.push(product)
+  const repeated = cartProducts.find(item => item === product)
+  if(repeated){
+    product.quantity += 1
+  } else{
+    cartProducts.push(product)
+  }
   modal.classList.add('d-none')
   Swal.fire({
     position: 'center',
@@ -146,18 +155,23 @@ const showCart = evt => {
   home.classList.add('d-none')
   categoryProductsSection.classList.add('d-none')
 
-  const totalPrice = cartProducts.reduce((acc, product) => acc + product.price, 0)
+  const totalPrice = cartProducts.reduce((acc, product) => acc + (product.price * product.quantity), 0)
 
   if(cartProducts.length === 0){
     document.querySelector('.cart-products-container').innerHTML = `<h2>No tienes productos en el carrito</h2>`
+    btnCheckout.classList.add('d-none')
   } else {
     btnCheckout.classList.remove('d-none')
-    document.querySelector('.cart-products-container').innerHTML = cartProducts.map(product => {
+    document.querySelector('.cart-products-container').innerHTML = cartProducts.map((product,index) => {
       return `
       <div class='cart-product'>
         <img src='${product.image}' alt='${product.title}'>
-        <h3>${product.title}</h3>
+        <div>
+          <img src='./images/borrar.png' alt='borrar' class='borrar' data-index='${index}'>
+          <h3>${product.title}</h3>
+        </div>
         <h3>$ ${product.price}</h3>
+        <small>x${product.quantity ? product.quantity : 1 }</small>
       </div>
       <hr>
       `
@@ -172,10 +186,22 @@ const showCart = evt => {
     home.classList.remove('d-none')
   })
 
+  document.querySelectorAll('.cart-product .borrar').forEach(borrar => borrar.addEventListener('click', (evt) => {
+    const withoutProduct = cartProducts.filter(product => product !== cartProducts[evt.target.dataset.index])
+    const eliminated = cartProducts.find(product => product === cartProducts[evt.target.dataset.index])
+    productsCount -= eliminated.quantity
+    cartNumber.innerHTML = productsCount
+    cartProducts = withoutProduct 
+    showCart(evt)
+  }))
+
   btnCheckout.addEventListener('click', checkout)
 }
 
 const checkout = () => {
+  cartProducts.forEach(product => {
+    product.quantity = 1
+  });
   cartProducts = []
   productsCount = 0
   cartNumber.innerHTML = productsCount
@@ -187,8 +213,15 @@ const checkout = () => {
 const categories = getData('https://fakestoreapi.com/products/categories')
 const products = getData('https://fakestoreapi.com/products')
 
+let newProducts = []
+
 products
-  .then(res => showHero(res))
+  .then(res => {
+    res.forEach(product => {
+      product.quantity = 1
+    });
+    showHero(res)
+    })
   .catch(err => console.error(err))
 
 categories
